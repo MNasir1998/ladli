@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Yeh Kahani, Tumhari Hai</title>
+<meta name="description" content="Ek chhota sa pyaar bhara safar, tumhare naam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient rain-of-petals canvas, runs behind every screen -->
+<canvas id="rain"></canvas>
+
+<div id="app">
+
+  <!-- ================= STEP 0 : START / QR LANDING ================= -->
+  <section class="screen active" data-step="start">
+    <div class="wax-seal" aria-hidden="true">❦</div>
+    <p class="eyebrow">Ek khat, tumhare naam</p>
+    <h1 class="title-xl">Yeh Kahani<span class="amp">,</span> Tumhari Hai</h1>
+    <p class="subtitle">Scan ho gaya. Ab zara dil khol ke baitho —<br>ye safar sirf tumhare liye likha gaya hai.</p>
+    <button class="btn-gold" id="btnOpen">
+      <span>Kholo</span>
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2c-.6 3.6-3.4 6.2-7 7 3.6.8 6.4 3.4 7 7 .6-3.6 3.4-6.2 7-7-3.6-.8-6.4-3.4-7-7z"/></svg>
+    </button>
+    <p class="hint">🔊 awaaz on rakhna, gaana bajega</p>
+  </section>
+
+  <!-- ================= STEP 1 : NAME GATE ================= -->
+  <section class="screen" data-step="name">
+    <p class="eyebrow">sabse pehle</p>
+    <h2 class="title-lg">Tumhara naam kya likhun,<br>is khat ke sar pe?</h2>
+    <input id="nameInput" class="name-input" type="text" maxlength="18" placeholder="jaise... Jaan" autocomplete="off">
+    <div class="chip-row" id="chipRow">
+      <!-- chips injected by JS from NICKNAMES -->
+    </div>
+    <button class="btn-outline" id="btnNameNext">Aage badho →</button>
+  </section>
+
+  <!-- ================= STEP 2 : LETTER ================= -->
+  <section class="screen" data-step="letter">
+    <p class="eyebrow" id="letterEyebrow">meri pyaari</p>
+    <h2 class="title-lg name-slot" id="letterName">Jaan,</h2>
+    <div class="letter-paper">
+      <p class="letter-text" id="letterText"></p>
+      <span class="caret" id="letterCaret">|</span>
+    </div>
+    <button class="btn-outline reveal-after-type" id="btnLetterNext">Aur padho →</button>
+  </section>
+
+  <!-- ================= STEP 3 : REASONS ================= -->
+  <section class="screen" data-step="reasons">
+    <p class="eyebrow">isiliye</p>
+    <h2 class="title-lg">Tum <span class="name-slot" id="reasonsName">Jaan</span> kyun ho,<br>mere liye</h2>
+    <div class="reason-grid" id="reasonGrid">
+      <!-- cards injected by JS -->
+    </div>
+    <button class="btn-outline" id="btnReasonsNext">Aage →</button>
+  </section>
+
+  <!-- ================= STEP 4 : TIMELINE (our real story) ================= -->
+  <section class="screen" data-step="timeline">
+    <p class="eyebrow">hamara safar</p>
+    <h2 class="title-lg">Yahan se, yahan tak</h2>
+    <ol class="timeline" id="timelineList">
+      <li><span class="tl-dot"></span><span class="tl-date">Wo Din</span><p>Jis din tumne mujhe qubool kiya, us din se main sirf tumhara ho gaya.</p></li>
+      <li><span class="tl-dot"></span><span class="tl-date">18 June</span><p>Jab humari baat cheet shuru hui — aur ek naye safar ki shuruaat hui.</p></li>
+      <li><span class="tl-dot"></span><span class="tl-date">Aahista Aahista</span><p>Hum dono ek dusre ke kareeb aate gaye, chahe kitni bhi galatfehmiyan kyun na hui, kitni bhi ladai jhagde hue.</p></li>
+      <li><span class="tl-dot"></span><span class="tl-date">Mushkil Waqt</span><p>Shaadi mein bhi bohot si mushkilein aayi, lekin humari mohabbat ne kabhi haar nahi maani.</p></li>
+      <li><span class="tl-dot"></span><span class="tl-date">Alhamdulillah</span><p>Sab kuch theek ho gaya — aur sabse khaas baat, hamari marzi ke mutabiq hua.</p></li>
+      <li><span class="tl-dot"></span><span class="tl-date">Aaj Tak</span><p>Us din se leke ab tak, tum mere sath ho — aur main tumhare bagair adhoora hoon.</p></li>
+    </ol>
+    <button class="btn-outline" id="btnTimelineNext">Aage →</button>
+  </section>
+
+  <!-- ================= STEP 5 : QUESTIONS ================= -->
+  <section class="screen" data-step="questions">
+    <p class="eyebrow">kuch sawaal, dil se</p>
+    <h2 class="title-lg">Ek chhota sa sawaal-jawaab</h2>
+    <div class="question-card" id="questionCard">
+      <p class="question-text" id="questionText"></p>
+    </div>
+    <div class="dot-row" id="questionDots"></div>
+    <button class="btn-outline" id="btnQuestionNext">Agla sawaal →</button>
+  </section>
+
+  <!-- ================= STEP 6 : PROPOSAL ================= -->
+  <section class="screen" data-step="proposal">
+    <p class="eyebrow">ab, aakhri sawaal</p>
+    <h2 class="title-lg propose-q">
+      Kya tum hamesha mere sath rahogi?<br>
+      Kya tum kabhi mujhse door nahi jaogi?<br>
+      Kya tum hamesha itni hi khush rahogi,<br>jitni aaj ho, <span class="name-slot" id="proposalName">Jaan</span>?
+    </h2>
+    <div class="proposal-buttons">
+      <button class="btn-gold" id="btnYes">Haan, hamesha 💍</button>
+      <button class="btn-ghost" id="btnNo">Nahi</button>
+    </div>
+  </section>
+
+  <!-- ================= STEP 7 : CELEBRATION ================= -->
+  <section class="screen" data-step="celebrate">
+    <canvas id="confetti"></canvas>
+    <div class="celebrate-inner">
+      <div class="big-heart">💗</div>
+      <h2 class="title-lg">Jaanti ho na...</h2>
+      <p class="celebrate-text">Tum meri <b id="celebrateName">Jaan</b> ho, meri Habibti, meri Duniya,<br>mera Dil ka Tukda, mera Sukoon, mera Sabkuch,<br>meri Ghulab Jamun. Bas tum. Hamesha.</p>
+      <p class="signoff">— tumhara, hamesha ke liye</p>
+      <button class="btn-outline" id="btnReplay">Phir se padhna hai ↺</button>
+    </div>
+  </section>
+
+</div>
+
+<button id="musicToggle" class="music-toggle" aria-label="Gaana chalao ya roko" title="Gaana chalao/roko">🎵</button>
+
+<audio id="bgSong" src="assets/song.mp3" preload="auto" loop></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
